@@ -118,16 +118,28 @@
                 <div class="row justify-content-center">
                     
                     <form action="process.php" method="POST">
+
+                                <input type="hidden" name="id" value="<?php echo $id; ?>" >
+
+
                         <div class="form-group">
                         <label>Naziv</label>
-                        <input type="text" name="naziv" class="form-control" value="Unesite naziv">
+                        <input type="text" name="naziv" class="form-control"
+                         value="<?php echo $naziv; ?>" placeholder="Unesite naziv">
                         </div>
                         <div class="form-group">
                         <label>Cena</label>
-                        <input type="text" name="cena" class="form-control" value="Unesite cenu">
+                        <input type="text" name="cena"
+                         class="form-control" value="<?php echo $cena; ?>" placeholder="Unesite cenu">
                         </div>
                         <div class="form-group">
-                        <button type="submit" class="btn btn-primary" name="save">Zapamti</button>
+                        <?php
+                        if ($update == true):
+                        ?>  
+                        <button type="submit" class="btn btn-info" name="update">Promeni</button> 
+                        <?php else: ?>
+                            <button type="submit" class="btn btn-primary" name="save">Zapamti</button>
+                        <?php endif; ?>   
                         </div>
                     </form>
 
