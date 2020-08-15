@@ -57,21 +57,77 @@
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <!-- Portfolio Grid Items-->
-                <?php require_once 'process.php' ?>
+                <!-- OVDE FORMA KRECE-->
+                <?php require_once 'process.php'; ?>
+
+                <?php 
+                    
+                    if(isset($_SESSION['message'])): ?>
+
+                    <div class="alert alert-<?=$_SESSION['msg_type']?>">
+
+                        <?php
+                            echo $_SESSION['message'];
+                            unset($_SESSION['message']);
+                        ?>
+                    </div>
+                    <?php endif ?>
+
+
+
+                <div class="container">
+                <?php
+                    $mysqli = new mysqli('localhost', 'root', '', 'itehprvidomaci') or die(mysqli_error($mysqli));
+                    $result = $mysqli->query("SELECT * FROM usluge");
+
+                ?>
+
+                <!-- HTML TABELA OVDE-->
+                <div class ="row justify-content-center">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Naziv</th>
+                                <th>Cena</th>
+                                <th calspan="2">Ažuriraj</th>
+                            </tr>
+                        </thead>
+
+                        <?php
+                            while ($row = $result->fetch_assoc()):?>
+                                <tr>
+                                    <td><?php echo $row['naziv']; ?></td>
+                                    <td><?php echo $row['cena']; ?></td>
+                                    <td>
+                                        <a href="index.php?edit=<?php echo $row['id']; ?>"
+                                        class="btn btn-info">Promeni</a>
+
+                                        <a href="process.php?delete=<?php echo $row['id']; ?>"
+                                        class="btn btn-danger">Obriši</a>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>    
+
+
+                    </table>
+                </div>
+
+
+
+
                 <div class="row justify-content-center">
                     
-                    <form action="" method="POST">
+                    <form action="process.php" method="POST">
                         <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" name="name" class="form-control" value="Enter your name">
+                        <label>Naziv</label>
+                        <input type="text" name="naziv" class="form-control" value="Unesite naziv">
                         </div>
                         <div class="form-group">
-                        <label>Location</label>
-                        <input type="text" name="location" class="form-control" value="Enter your location">
+                        <label>Cena</label>
+                        <input type="text" name="cena" class="form-control" value="Unesite cenu">
                         </div>
                         <div class="form-group">
-                        <button type="submit" class="btn btn-primary" name="save">Save</button>
+                        <button type="submit" class="btn btn-primary" name="save">Zapamti</button>
                         </div>
                     </form>
 
