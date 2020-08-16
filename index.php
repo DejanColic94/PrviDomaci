@@ -214,12 +214,19 @@
                     
                     
                       <form action="process.php" method="POST">
+                            <input type="hidden" name="rb" value="<?php echo $rb; ?>">
                             <div class="form-group">
                              <label>Ime tehnologije</label>   
-                                <input type="text" name="ime" class="form-control" value="Unesite ime tehnologije">
+                                <input type="text" name="ime" class="form-control" value="<?php echo $ime ?>"  placeholder="Unesite ime tehnologije">
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-light" name="snimi">Snimi</button>
+                                <?php
+                                    if($update2 == true):
+                                ?>
+                                    <button type="submit" class="btn btn-danger" name="promeni">Promeni</button>
+                                    <?php else: ?>
+                                    <button type="submit" class="btn btn-light" name="snimi">Snimi</button>
+                                    <?php endif; ?>
                             </div>
                      </form>                            
 

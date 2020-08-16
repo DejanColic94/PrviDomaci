@@ -73,7 +73,9 @@ if (isset($_POST['update'])) {
 
 //------------------------ drugi deo -----------------------------
 
-
+$ime = '';
+$update2 = false;
+$rb = 0;
 
 //snimi dugme
 if(isset($_POST['snimi'])) {
@@ -95,6 +97,34 @@ if (isset($_GET['delete2'])) {
 
     $_SESSION['message'] = "Obrisano!";
     $_SESSION['msg_type'] = "danger";
+
+    header("location: index.php");
+}
+
+//edit2 dugme
+if(isset($_GET['edit2'])) {
+    $rb = $_GET['edit2'];
+    $update2 = true;
+    $rezultat =$mysqli->query("SELECT * FROM tehnologije WHERE rb=$rb") or die($mysqli->error());
+
+    if($rezultat->num_rows){
+
+        $row2 = $rezultat->fetch_array();
+        $ime = $row2['ime'];
+        
+
+    }
+}
+
+//update2 dugme
+if(isset($_POST['promeni'])) {
+    $rb = $_POST['rb'];
+    $ime = $_POST['ime'];
+
+    $mysqli->query("UPDATE tehnologije SET ime='$ime' WHERE rb=$rb") or die($mysqli->error());
+
+    $_SESSION['message'] = "Promenjeno!";
+    $_SESSION['msg_type'] = "warning";
 
     header("location: index.php");
 }
