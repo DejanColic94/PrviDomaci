@@ -161,15 +161,80 @@
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <!-- About Section Content-->
-                <div class="row">
-                    <div class="col-lg-4 ml-auto">
-                        <p class="pre-wrap lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.</p>
-                    </div>
-                    <div class="col-lg-4 mr-auto">
-                        <p class="pre-wrap lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p>
-                    </div>
+                <!--OVDE TEHNOLOGIJE-->
+
+                <!-- HTML TABELA -->
+            <div class="container">           
+                <?php
+                    $mysqli = new mysqli('localhost','root','','itehprvidomaci') or die(mysqli_error($mysqli));
+                    $rezultat = $mysqli->query("SELECT * FROM tehnologije") or die($mysqli->error);
+
+                ?>
+
+                <div class="row justify-content-center">
+                            
+                       <table class="table">
+                           <thead>
+                                <tr>
+                                    <th>Ime</th>
+                                    <th colspan="2">Promeni</th>
+                                </tr>
+                           </thead> 
+                
+                    <?php
+
+                        while($row2 = $rezultat->fetch_assoc()): ?>  
+                            <tr>
+                                <td><?php echo $row2['ime']; ?> </td>
+                                <td>
+                                    <a href="index.php?edit2=<?php echo $row2['rb']; ?>"
+                                    class="btn btn-info">Promeni</a>
+                                    <a href="process.php?delete2=<?php echo $row2['rb']; ?>"
+                                    class="btn btn-danger">Obriši</a>
+                                </td>
+                            </tr>  
+
+                        <?php endwhile; ?>
+
+
+                       </table>     
+
                 </div>
+
+
+
+
+
+
+
+
+
+                <div class="row justify-content-center">
+                    
+                    
+                    
+                      <form action="process.php" method="POST">
+                            <input type="hidden" name="rb" value="<?php echo $rb; ?>">
+                            <div class="form-group">
+                             <label>Ime tehnologije</label>   
+                                <input type="text" name="ime" class="form-control" value="<?php echo $ime ?>"  placeholder="Unesite ime tehnologije">
+                            </div>
+                            <div class="form-group">
+                                <?php
+                                    if($update2 == true):
+                                ?>
+                                    <button type="submit" class="btn btn-danger" name="promeni">Promeni</button>
+                                    <?php else: ?>
+                                    <button type="submit" class="btn btn-light" name="snimi">Snimi</button>
+                                    <?php endif; ?>
+                            </div>
+                     </form>                            
+
+                    
+
+
+                </div>
+            </div>
             </div>
         </section>
         <section class="page-section" id="contact">
