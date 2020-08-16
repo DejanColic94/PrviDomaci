@@ -47,10 +47,13 @@ if(isset($_GET['edit'])) {
     $update = true;
     $result = $mysqli->query("SELECT * FROM usluge WHERE id=$id") or die($mysqli->error());
     
-    
+    if($result->num_rows){
+
         $row = $result->fetch_array();
         $naziv = $row['naziv'];
         $cena = $row['cena'];
+
+    }
     
 }
 
