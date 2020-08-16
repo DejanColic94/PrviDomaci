@@ -71,4 +71,30 @@ if (isset($_POST['update'])) {
     header('location: index.php');
 }
 
+//------------------------ drugi deo -----------------------------
 
+
+
+//snimi dugme
+if(isset($_POST['snimi'])) {
+    $ime = $_POST['ime'];
+
+    $mysqli->query("INSERT INTO tehnologije (ime) VALUES('$ime')") or die($mysqli->error);
+
+    $_SESSION['message'] = "Snimljeno!";
+    $_SESSION['msg_type'] = "success";
+
+    header("location: index.php");
+}
+
+
+//delete2 dugme
+if (isset($_GET['delete2'])) {
+    $rb = $_GET['delete2'];
+    $mysqli->query("DELETE FROM tehnologije WHERE rb=$rb") or die($mysqli->error());
+
+    $_SESSION['message'] = "Obrisano!";
+    $_SESSION['msg_type'] = "danger";
+
+    header("location: index.php");
+}
